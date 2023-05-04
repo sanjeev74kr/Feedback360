@@ -5,17 +5,18 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 const mongoose_1 = __importDefault(require("mongoose"));
 const dotenv_1 = __importDefault(require("dotenv"));
+const messages_1 = require("./utils/messages");
 dotenv_1.default.config();
 const MONGODB_URI = process.env.MONGODB_URI;
 if (!MONGODB_URI) {
-    console.error("MONGODB_URI environment variable is not defined");
+    console.error(messages_1.messages.ERROR_DATABASE_ENV);
     process.exit(1);
 }
 mongoose_1.default.connect(MONGODB_URI)
     .then(() => {
-    console.log("Connected To database");
+    console.log(messages_1.messages.SUCCESS_DATABASE);
 })
     .catch((error) => {
-    console.log("Error occured while connecting to database");
+    console.log(messages_1.messages.ERROR_DATABASE);
 });
 //# sourceMappingURL=database.js.map

@@ -12,42 +12,64 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.postReview = exports.saveRestaurant = exports.getRestaurantById = exports.getAllRestaurants = void 0;
 const restaurant_model_1 = require("../models/restaurant_model");
 const review_model_1 = require("../models/review_model");
+const messages_1 = require("../utils/messages");
 const getAllRestaurants = () => __awaiter(void 0, void 0, void 0, function* () {
-    return yield restaurant_model_1.restaurantModel.find({}, { name: 1, address: 1 });
+    try {
+        return yield restaurant_model_1.restaurantModel.find({}, { name: 1, address: 1 });
+    }
+    catch (error) {
+        throw new Error(messages_1.messages.ERROR_FETCHING_DATA);
+    }
 });
 exports.getAllRestaurants = getAllRestaurants;
 const getRestaurantById = (restaurantId) => __awaiter(void 0, void 0, void 0, function* () {
-    return yield restaurant_model_1.restaurantModel.aggregate([
-        {
-            $match: { _id: restaurantId },
-        },
-        {
-            $lookup: {
-                from: "reviews",
-                localField: "_id",
-                foreignField: "restaurantId",
-                as: "reviews",
+    try {
+        return yield restaurant_model_1.restaurantModel.aggregate([
+            {
+                $match: { _id: restaurantId },
             },
-        },
-        {
-            $project: {
-                name: 1,
-                address: 1,
-                description: 1,
-                "reviews.reviewText": 1,
+            {
+                $lookup: {
+                    from: "reviews",
+                    localField: "_id",
+                    foreignField: "restaurantId",
+                    as: "restaurantReviews",
+                },
             },
-        },
-    ]);
+            {
+                $project: {
+                    name: 1,
+                    address: 1,
+                    description: 1,
+                    "restaurantReviews.rating": 1,
+                    "restaurantReviews.reviewText": 1,
+                },
+            },
+        ]);
+    }
+    catch (error) {
+        throw new Error(messages_1.messages.ERROR_FETCHING_DATA);
+    }
 });
 exports.getRestaurantById = getRestaurantById;
 const saveRestaurant = (data) => __awaiter(void 0, void 0, void 0, function* () {
-    const newRestaurant = new restaurant_model_1.restaurantModel(data);
-    return yield newRestaurant.save();
+    try {
+        const newRestaurant = new restaurant_model_1.restaurantModel(data);
+        return yield newRestaurant.save();
+    }
+    catch (error) {
+        throw new Error(messages_1.messages.ERROR_SAVING_DATA);
+    }
 });
 exports.saveRestaurant = saveRestaurant;
-const postReview = (restaurantId, reviewText) => __awaiter(void 0, void 0, void 0, function* () {
-    const newReview = new review_model_1.reviewModel({ restaurantId, reviewText });
-    return yield newReview.save();
+const postReview = (restaurantId, rating, reviewText) => __awaiter(void 0, void 0, void 0, function* () {
+    try {
+        const newReview = new review_model_1.reviewModel({ restaurantId, rating, reviewText });
+        return yield newReview.save();
+    }
+    catch (error) {
+        throw new Error(messages_1.messages.ERROR_SAVING_DATA);
+    }
 });
 exports.postReview = postReview;
 //# sourceMappingURL=restaurant_service.js.map

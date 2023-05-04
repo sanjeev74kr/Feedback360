@@ -1,12 +1,14 @@
 import { getAnalytics } from "../services/admin_service";
 import { Request,Response } from "express";
+import sendErrorResponse from "../utils/sendErrorResponse";
+import { messages } from "../utils/messages";
 
-export const getAnalyticsForAdmin= async(req:Request,resp:Response)=>
-{try{
+export const getAnalyticsForAdmin= async(req:Request,resp:Response):Promise<void> =>{
+  try{
     const analytics= await getAnalytics();
     resp.status(200).json(analytics);
-} catch (err) {
-  console.error(err);
-  resp.status(500).json({ message: 'Internal Server Error' });
+} 
+catch (error) {
+  sendErrorResponse(resp,error,500,messages.ERROR_FETCHING_DATA);
 }
 }

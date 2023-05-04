@@ -1,0 +1,1 @@
+{"version":3,"file":"sendErrorResponse.js","sourceRoot":"","sources":["../../src/utils/sendErrorResponse.ts"],"names":[],"mappings":";;AAEA,SAAS,iBAAiB,CAAC,IAAc,EAAE,KAAU,EAAE,UAAkB,EAAE,OAAe;IACxF,OAAO,CAAC,GAAG,CAAC,KAAK,CAAC,CAAC;IACnB,IAAI,CAAC,MAAM,CAAC,UAAU,CAAC,CAAC,IAAI,CAAC,OAAO,CAAC,CAAC;AACxC,CAAC;AAED,kBAAe,iBAAiB,CAAC"}

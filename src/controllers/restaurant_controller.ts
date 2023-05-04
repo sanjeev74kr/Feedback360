@@ -1,50 +1,52 @@
-
 import { Request, Response } from 'express';
 import { Types } from 'mongoose';
 import { getAllRestaurants, getRestaurantById, postReview, saveRestaurant } from '../services/restaurant_service';
+import sendErrorResponse from '../utils/sendErrorResponse';
+import { messages } from '../utils/messages';
 
-export const getAllRestaurantsController = async ( req: Request, res: Response ): Promise<void> => {
+//get all available restaurants
+export const getAllRestaurantsController = async ( req: Request, resp: Response ): Promise<void> => {
  try {
     const restaurants = await getAllRestaurants();
-    res.status(200).json(restaurants);
-  } catch (err) {
-    console.error(err);
-    res.status(500).json({ message: 'Internal Server Error' });
+    resp.status(200).json(restaurants);
+  } catch (error) {
+    sendErrorResponse(resp,error,500,messages.ERROR_FETCHING_DATA);
   }
 };
 
-export const getRestaurantByIdController = async ( req: Request, res: Response ): Promise<void> => {
+//show restaurant by Id with reviews
+export const getRestaurantByIdController = async ( req: Request, resp: Response ): Promise<void> => {
   try {
     const restaurantId = req.params._id;  
     const restaurant = await getRestaurantById(new Types.ObjectId(restaurantId));
-    res.status(200).json(restaurant);
+    resp.status(200).json(restaurant);
   } 
-  catch (err) {
-    console.error(err);
-    res.status(500).json({ message: 'Internal Server Error' });
+  catch (error) {
+    sendErrorResponse(resp,error,500,messages.ERROR_FETCHING_DATA);
   }
 };
 
-export const saveRestaurantController= async ( req: Request, res: Response ): Promise<void> =>{
+//Save new restaurant
+export const saveRestaurantController= async ( req: Request, resp: Response ): Promise<void> =>{
   try{
     const restaurant =await saveRestaurant(req.body);
-    res.status(200).json({message: 'data saved successfully'});
+    resp.status(200).json({message: messages.SUCCESS_RESTAURANT_SAVED});
   }
-  catch(err){
-    console.error(err);
-    res.status(500).json({ message: 'Internal Server Error' });
+  catch(error){
+    sendErrorResponse(resp,error,500,messages.ERROR_SAVING_DATA);
   }
 }
 
-export const postReviewController = async ( req: Request, res: Response ): Promise<void> => {
+//Post new review
+export const postReviewController = async ( req: Request, resp: Response ): Promise<void> => {
   try {
     const restaurantId = req.params._id;
+    const rating=req.body.rating;
     const reviewText = req.body.reviewText;
-    await postReview(new Types.ObjectId(restaurantId), reviewText);
-    res.status(200).json({ message: 'Review submitted successfully' });
+    await postReview(new Types.ObjectId(restaurantId), rating,reviewText);
+    resp.status(200).json({ message: messages.SUCCESS_REVIEW_SUBMIT });
   } 
-  catch (err) {
-    console.error(err);
-    res.status(500).json({ message: 'Internal Server Error' });
+  catch (error) {
+    sendErrorResponse(resp,error,500,messages.ERROR_SAVING_DATA);
   }
 };

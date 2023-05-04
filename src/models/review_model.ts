@@ -1,8 +1,8 @@
 import mongoose,{Types} from "mongoose";
-import {IRestaurant,restaurantModel}  from './restaurant_model';
 
- interface IReview {
+interface IReview {
   restaurantId: Types.ObjectId;
+  rating:number;
   reviewText: string;
 }
 
@@ -11,6 +11,10 @@ const reviewSchema = new mongoose.Schema<IReview>({
     type: mongoose.Schema.Types.ObjectId, 
     ref: 'restaurants',
     required:true
+},
+rating: { 
+  type: Number, 
+  required: true 
 },
   reviewText: { 
     type: String, 

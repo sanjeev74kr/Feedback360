@@ -11,6 +11,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.getAnalytics = void 0;
 const restaurant_model_1 = require("../models/restaurant_model");
+const messages_1 = require("../utils/messages");
 const getAnalytics = () => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const restaurants = yield restaurant_model_1.restaurantModel.aggregate([
@@ -19,7 +20,7 @@ const getAnalytics = () => __awaiter(void 0, void 0, void 0, function* () {
                     from: 'reviews',
                     localField: '_id',
                     foreignField: 'restaurantId',
-                    as: 'reviews',
+                    as: 'restaurantReviews',
                 },
             },
             {
@@ -27,21 +28,23 @@ const getAnalytics = () => __awaiter(void 0, void 0, void 0, function* () {
                     _id: '$_id',
                     restaurantId: { $first: '$_id' },
                     name: { $first: '$name' },
-                    reviewCount: { $sum: 1 },
+                    reviewCount: { $sum: { $size: '$restaurantReviews' }
+                    },
                 },
             },
             {
                 $project: {
+                    _id: 0,
                     ID: '$restaurantId',
                     RestaurantName: '$name',
-                    TotalReviews: '$reviewCount',
+                    TotalReviews: '$reviewCount'
                 },
             },
         ]);
         return restaurants;
     }
     catch (error) {
-        console.log(error);
+        throw new Error(messages_1.messages.ERROR_FETCHING_DATA);
     }
 });
 exports.getAnalytics = getAnalytics;

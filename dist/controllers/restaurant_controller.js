@@ -8,54 +8,56 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.postReviewController = exports.saveRestaurantController = exports.getRestaurantByIdController = exports.getAllRestaurantsController = void 0;
 const mongoose_1 = require("mongoose");
 const restaurant_service_1 = require("../services/restaurant_service");
-const getAllRestaurantsController = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+const sendErrorResponse_1 = __importDefault(require("../utils/sendErrorResponse"));
+const messages_1 = require("../utils/messages");
+const getAllRestaurantsController = (req, resp) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const restaurants = yield (0, restaurant_service_1.getAllRestaurants)();
-        res.status(200).json(restaurants);
+        resp.status(200).json(restaurants);
     }
-    catch (err) {
-        console.error(err);
-        res.status(500).json({ message: 'Internal Server Error' });
+    catch (error) {
+        (0, sendErrorResponse_1.default)(resp, error, 500, messages_1.messages.ERROR_FETCHING_DATA);
     }
 });
 exports.getAllRestaurantsController = getAllRestaurantsController;
-const getRestaurantByIdController = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+const getRestaurantByIdController = (req, resp) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const restaurantId = req.params._id;
         const restaurant = yield (0, restaurant_service_1.getRestaurantById)(new mongoose_1.Types.ObjectId(restaurantId));
-        res.status(200).json(restaurant);
+        resp.status(200).json(restaurant);
     }
-    catch (err) {
-        console.error(err);
-        res.status(500).json({ message: 'Internal Server Error' });
+    catch (error) {
+        (0, sendErrorResponse_1.default)(resp, error, 500, messages_1.messages.ERROR_FETCHING_DATA);
     }
 });
 exports.getRestaurantByIdController = getRestaurantByIdController;
-const saveRestaurantController = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+const saveRestaurantController = (req, resp) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const restaurant = yield (0, restaurant_service_1.saveRestaurant)(req.body);
-        res.status(200).json({ message: 'data saved successfully' });
+        resp.status(200).json({ message: messages_1.messages.SUCCESS_RESTAURANT_SAVED });
     }
-    catch (err) {
-        console.error(err);
-        res.status(500).json({ message: 'Internal Server Error' });
+    catch (error) {
+        (0, sendErrorResponse_1.default)(resp, error, 500, messages_1.messages.ERROR_SAVING_DATA);
     }
 });
 exports.saveRestaurantController = saveRestaurantController;
-const postReviewController = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+const postReviewController = (req, resp) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const restaurantId = req.params._id;
+        const rating = req.body.rating;
         const reviewText = req.body.reviewText;
-        yield (0, restaurant_service_1.postReview)(new mongoose_1.Types.ObjectId(restaurantId), reviewText);
-        res.status(200).json({ message: 'Review submitted successfully' });
+        yield (0, restaurant_service_1.postReview)(new mongoose_1.Types.ObjectId(restaurantId), rating, reviewText);
+        resp.status(200).json({ message: messages_1.messages.SUCCESS_REVIEW_SUBMIT });
     }
-    catch (err) {
-        console.error(err);
-        res.status(500).json({ message: 'Internal Server Error' });
+    catch (error) {
+        (0, sendErrorResponse_1.default)(resp, error, 500, messages_1.messages.ERROR_SAVING_DATA);
     }
 });
 exports.postReviewController = postReviewController;

@@ -1,5 +1,5 @@
-import {IRestaurant,restaurantModel} from '../models/restaurant_model';
-import {IReview,reviewModel} from '../models/review_model';
+import {restaurantModel} from '../models/restaurant_model';
+import { messages } from '../utils/messages';
 
 export const getAnalytics= async()=>{
     try {
@@ -9,29 +9,30 @@ export const getAnalytics= async()=>{
               from: 'reviews',
               localField: '_id',
               foreignField: 'restaurantId',
-              as: 'reviews',
+              as: 'restaurantReviews',
             },
           },
           {
             $group: {
-              _id: '$_id',
-              restaurantId:{ $first: '$_id' },
-              name: { $first: '$name' },
-              reviewCount: { $sum: 1 },
+              _id:'$_id',
+              restaurantId:{$first:'$_id'},
+              name:{$first:'$name'} ,
+              reviewCount: { $sum:{$size:'$restaurantReviews'}
+            } ,
             },
           },
           {
             $project: {
+              _id:0,
               ID: '$restaurantId',
-            RestaurantName: '$name',
-            TotalReviews: '$reviewCount',
+              RestaurantName: '$name',
+              TotalReviews:'$reviewCount'
             },
-          },
+         },
         ]);
         return restaurants;
-
 }
 catch(error){
-    console.log(error);
+  throw new Error(messages.ERROR_FETCHING_DATA);
 }
 }
