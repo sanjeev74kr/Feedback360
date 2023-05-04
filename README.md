@@ -13,21 +13,21 @@ Mongoose
 
 Typescript
 
-Steps to run:->
+* Steps to run:->
 
 To run this project, follow the steps below:
 
-Clone the repository:
+1. Clone the repository:
 
 https://github.com/sanjeev74kr/Restaurant_Review_App.git
 
-Install dependencies:
+2.  Install dependencies:
 
-cd Restaurant_Review_App
+cd Restaurant-Review-App
 
 npm install
 
-Configure the environment variables:
+3. Configure the environment variables:
 
 Create a .env file in the root directory of the project and set the following environment variables:
 MONGODB_URI=
@@ -40,11 +40,13 @@ interface ProcessEnv{
     PORT:number
 }
 
-Run - npm start
+4. Run - npm start
 
 The server should now be running on http://localhost:Your given PORT.
 
-API Endpoints
+* API Endpoints
+
+
 | HTTP Verb | API Endpoint | Brief Description |
 | --- | --- | ---          | ----------------- |
 | GET | /restaurants | Get a list of all restaurants |
@@ -54,9 +56,9 @@ API Endpoints
 | GET | /admin/analytics | Get analytics of all restaurants |
 
 
-*Input required
+* Input required
 
-*For saving restaurant
+* For saving restaurant
 
 | Attribute | Data Type |
 | --- | --- |
@@ -66,6 +68,7 @@ API Endpoints
 | description | string |
 
 * for review
+
 | Attribute | Data Type |
 | --- | --- |
 | id | ObjectId |
