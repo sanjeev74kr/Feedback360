@@ -50,19 +50,14 @@ PORT:number
 The server should now be running on http://localhost:Your given PORT.
 
 * API Endpoints
+* 
 
 | HTTP Verb | API Endpoint | Brief Description |
-
-| --- | --- | ---          | ----------------- |
-
+| --- | --- | --- | 
 | GET | /restaurants | Get a list of all restaurants |
-
 | GET | /restaurants/:_id | Get the details of a single restaurant, including all reviews |
-
 | POST | /restaurants/:_id/review | Submit a review for a restaurant |
-
 | POST | /restaurants/post | Save a new restaurant |
-
 | GET | /admin/analytics | Get analytics of all restaurants |
 
 
