@@ -50,7 +50,6 @@ PORT:number
 The server should now be running on http://localhost:Your given PORT.
 
 * API Endpoints
-* 
 
 | HTTP Verb | API Endpoint | Brief Description |
 | --- | --- | --- | 
