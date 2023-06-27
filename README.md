@@ -65,20 +65,21 @@ PORT: number
 
 
 
-* restaurants collection fields
+* businesses collection fields
 
 | Attribute | Data Type |
 | --- | --- |
 | _id | ObjectId |
 | name | string |
-| address | string |
 | description | string |
+| location | string |
+| category | string |
 
-* reviews collection fields
+* feedbacks collection fields
 
 | Attribute | Data Type |
 | --- | --- |
 | _id | ObjectId |
-| restaurantId | ObjectId |
-| rating | number |
-| reviewText | string |
+| businessId | ObjectId |
+| ratings | number |
+| reviews | string |
