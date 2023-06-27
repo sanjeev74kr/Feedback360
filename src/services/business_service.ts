@@ -1,5 +1,5 @@
 import { Types } from 'mongoose';
-import { IRestaurant, restaurantModel } from '../models/restaurant_model';
+import { IRestaurant, restaurantModel } from '../models/business_model';
 import { IReview, reviewModel } from '../models/review_model';
 import { messages } from '../utils/messages';
 

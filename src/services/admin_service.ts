@@ -1,4 +1,4 @@
-import {restaurantModel} from '../models/restaurant_model';
+import {restaurantModel} from '../models/business_model';
 import { messages } from '../utils/messages';
 
 export const getAnalytics= async()=>{
