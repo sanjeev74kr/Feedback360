@@ -57,11 +57,11 @@ PORT: number
 
 | HTTP Verb | API Endpoint | Brief Description |
 | --- | --- | --- | 
-| GET | /restaurants | Get a list of all restaurants |
-| GET | /restaurants/:_id | Get the details of a single restaurant, including all reviews |
-| POST | /restaurants/:_id/review | Submit a review with rating for a restaurant |
-| POST | /restaurants/post | Save a new restaurant |
-| GET | /admin/analytics | Get analytics of all available restaurants for admin |
+| GET | /business | Get a list of all businesses |
+| GET | /business/:_id | Get the details of a single business, including all reviews |
+| POST | /business/:_id/feedback | Submit a review with rating for a restaurant |
+| POST | /business/save | Save a new business |
+| GET | /admin/analytics | Get analytics of all available businesses for admin |
 
 
 
