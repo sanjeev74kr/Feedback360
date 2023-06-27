@@ -1,5 +1,11 @@
 # Feedback360
-This is a web application that includes a CRUD API for displaying a list of restaurants and their reviews. Also users can add their own ratings and reviews.
+This project aims to provide feedback and information to users about nearby shops, hospitals,
+
+schools, and more.
+
+It includes CRUD APIs for displaying a list of establishments and their reviews. 
+
+Also, users can add their own ratings and reviews and admin can view the analytics.
 
 Technologies Used->
 
@@ -23,7 +29,7 @@ https://github.com/sanjeev74kr/Restaurant_Review_App.git
 
 2.  Install dependencies:
 
-    cd Restaurant-Review-App
+    cd Feedback360
 
     npm install
 
