@@ -1,27 +1,27 @@
-import mongoose,{Types} from "mongoose";
+import mongoose, { Types } from "mongoose";
 
-interface IReview {
-  restaurantId: Types.ObjectId;
-  rating:number;
-  reviewText: string;
+interface IFeedback {
+  businessId: Types.ObjectId;
+  ratings: number;
+  reviews: string;
+
 }
 
-const reviewSchema = new mongoose.Schema<IReview>({
-  restaurantId: { 
-    type: mongoose.Schema.Types.ObjectId, 
-    ref: 'restaurants',
-    required:true
-},
-rating: { 
-  type: Number, 
-  required: true 
-},
-  reviewText: { 
-    type: String, 
-    required: true 
-},
+const feedbackSchema = new mongoose.Schema<IFeedback>({
+  businessId: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'businesses',
+    required: true
+  },
+  ratings: {
+    type: Number,
+    required: true
+  },
+  reviews: {
+    type: String,
+  },
 });
 
 
-const reviewModel:mongoose.Model<IReview>=mongoose.model<IReview>('reviews',reviewSchema);
-export  {IReview,reviewModel};
+const feedbackModel = mongoose.model<IFeedback>('feedbacks', feedbackSchema);
+export { IFeedback, feedbackModel };

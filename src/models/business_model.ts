@@ -1,23 +1,34 @@
 import mongoose from 'mongoose';
 
-interface IRestaurant{
-    name:string,
-    address:string,
-    description:string,
-   }
+interface IBusiness {
+  name: string,
+  description: string,
+  location: string,
+  category: string
 
-const restaurantSchema= new mongoose.Schema<IRestaurant>(
-{ 
-  name: { 
-    type: String, 
-    required: true 
-},
-  address: { type: String, 
-    required: true 
-},
-  description: { type: String, 
-    required: true },
-});
+}
 
-const restaurantModel:mongoose.Model<IRestaurant>=mongoose.model('restaurants',restaurantSchema);
-export {IRestaurant, restaurantModel};
+const businessSchema = new mongoose.Schema<IBusiness>(
+  {
+    name: {
+      type: String,
+      required: true
+    },
+    description: {
+      type: String,
+      required: true
+    },
+    location: {
+      type: String,
+      required: true
+    },
+    category: {
+      type: String,
+      required: true
+    }
+
+  });
+
+
+const businessModel: mongoose.Model<IBusiness> = mongoose.model('businesses', businessSchema);
+export { IBusiness, businessModel };

@@ -1,52 +1,73 @@
 import { Request, Response } from 'express';
 import { Types } from 'mongoose';
-import { getAllRestaurants, getRestaurantById, postReview, saveRestaurant } from '../services/restaurant_service';
+import { getAllBusinesses, getBusinessByCategory, getBusinessById, postFeedback, saveBusiness } from '../services/business_service';
 import sendErrorResponse from '../utils/sendErrorResponse';
 import { messages } from '../utils/messages';
+import { IBusiness } from '../models/business_model';
 
-//get all available restaurants
-export const getAllRestaurantsController = async ( req: Request, resp: Response ): Promise<void> => {
- try {
-    const restaurants = await getAllRestaurants();
-    resp.status(200).json(restaurants);
-  } catch (error) {
-    sendErrorResponse(resp,error,500,messages.ERROR_FETCHING_DATA);
-  }
-};
 
-//show restaurant by Id with reviews
-export const getRestaurantByIdController = async ( req: Request, resp: Response ): Promise<void> => {
+//get businesses by category
+export const getBusinessByCategoryController = async (req: Request, resp: Response): Promise<void> => {
   try {
-    const restaurantId = req.params._id;  
-    const restaurant = await getRestaurantById(new Types.ObjectId(restaurantId));
-    resp.status(200).json(restaurant);
-  } 
+    const category: string = req.body.category;
+    console.log("category written in body: ", category);
+    const businesses: IBusiness[] = await getBusinessByCategory(category);
+    if (businesses.length == 0) {
+      resp.status(404).json(`No business is listed in  ${category} category`);
+    }
+    else {
+      console.log("returned from service class");
+      resp.status(200).json(businesses);
+    }
+  }
   catch (error) {
-    sendErrorResponse(resp,error,500,messages.ERROR_FETCHING_DATA);
-  }
-};
-
-//Save new restaurant
-export const saveRestaurantController= async ( req: Request, resp: Response ): Promise<void> =>{
-  try{
-    const restaurant =await saveRestaurant(req.body);
-    resp.status(200).json({message: messages.SUCCESS_RESTAURANT_SAVED});
-  }
-  catch(error){
-    sendErrorResponse(resp,error,500,messages.ERROR_SAVING_DATA);
+    sendErrorResponse(resp, error, 500, messages.ERROR_FETCHING_DATA);
   }
 }
 
-//Post new review
-export const postReviewController = async ( req: Request, resp: Response ): Promise<void> => {
+//get all available businesses
+export const getAllBusinessController = async (req: Request, resp: Response): Promise<void> => {
   try {
-    const restaurantId = req.params._id;
-    const rating=req.body.rating;
-    const reviewText = req.body.reviewText;
-    await postReview(new Types.ObjectId(restaurantId), rating,reviewText);
-    resp.status(200).json({ message: messages.SUCCESS_REVIEW_SUBMIT });
-  } 
+    const businesses = await getAllBusinesses();
+    resp.status(200).json(businesses);
+  } catch (error) {
+    sendErrorResponse(resp, error, 500, messages.ERROR_FETCHING_DATA);
+  }
+};
+
+//show business by Id with feedbacks
+export const getBusinessByIdController = async (req: Request, resp: Response): Promise<void> => {
+  try {
+    const businessId = req.params._id;
+    const business = await getBusinessById(new Types.ObjectId(businessId));
+    resp.status(200).json(business);
+  }
   catch (error) {
-    sendErrorResponse(resp,error,500,messages.ERROR_SAVING_DATA);
+    sendErrorResponse(resp, error, 500, messages.ERROR_FETCHING_DATA);
+  }
+};
+
+//Save new business
+export const saveBusinessController = async (req: Request, resp: Response): Promise<void> => {
+  try {
+    const business = await saveBusiness(req.body);
+    resp.status(200).json({ message: messages.SUCCESS_BUSINESS_SAVED });
+  }
+  catch (error) {
+    sendErrorResponse(resp, error, 500, messages.ERROR_SAVING_DATA);
+  }
+}
+
+//Post new feedback
+export const postFeedbackController = async (req: Request, resp: Response): Promise<void> => {
+  try {
+    const businessId = req.params._id;
+    const ratings = req.body.rating;
+    const reviews = req.body.reviewText;
+    await postFeedback(new Types.ObjectId(businessId), ratings, reviews);
+    resp.status(200).json({ message: messages.SUCCESS_REVIEW_SUBMIT });
+  }
+  catch (error) {
+    sendErrorResponse(resp, error, 500, messages.ERROR_SAVING_DATA);
   }
 };

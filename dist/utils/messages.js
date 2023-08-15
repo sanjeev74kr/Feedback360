@@ -3,7 +3,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.messages = void 0;
 exports.messages = {
     SUCCESS_REVIEW_SUBMIT: 'Review submitted successfully',
-    SUCCESS_RESTAURANT_SAVED: 'Restaurant saved successfully',
+    SUCCESS_BUSINESS_SAVED: 'New Business saved successfully',
     ERROR_NO_DATA: 'No data found',
     ERROR_SAVING_DATA: 'An error occured while saving the data',
     ERROR_FETCHING_DATA: 'An error occured while fetching the data',

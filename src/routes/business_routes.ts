@@ -1,10 +1,13 @@
 import express from 'express';
-import { getAllRestaurantsController, getRestaurantByIdController,postReviewController,saveRestaurantController} from '../controllers/restaurant_controller'
-const router=express.Router();
+import { getAllBusinessController, getBusinessByCategoryController, getBusinessByIdController, postFeedbackController, saveBusinessController } from '../controllers/business_controller'
 
-router.get('',getAllRestaurantsController); //routes for getting all available restaurants
-router.get('/:_id',getRestaurantByIdController); //routes for getting a particular restaurant by Id
-router.post('/:_id/review',postReviewController); //routes for posting review
-router.post('/post',saveRestaurantController); //routes for saving a new restaurant
+const router = express.Router();
+
+
+router.get('/category', getBusinessByCategoryController);
+router.get('', getAllBusinessController); //routes for getting all available businesses
+router.get('/:_id', getBusinessByIdController); //routes for getting a particular business by Id
+router.post('/:_id/feedback', postFeedbackController); //routes for posting review
+router.post('/save', saveBusinessController); //routes for saving a new business
 
 export default router;
