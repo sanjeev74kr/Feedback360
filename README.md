@@ -25,11 +25,11 @@ JWT Authentication
 
 **Steps to run:**
 
-To run this project, follow the steps below:
+  To run this project, follow the steps below:
 
 1. Clone the repository:
 
-https://github.com/sanjeev74kr/Restaurant_Review_App.git
+   https://github.com/sanjeev74kr/Restaurant_Review_App.git
 
 2.  Install dependencies:
 
@@ -39,7 +39,7 @@ https://github.com/sanjeev74kr/Restaurant_Review_App.git
 
 3. Configure the environment variables:
 
-Create a .env file in the root directory of the project and set the following environment variables:
+   Create a .env file in the root directory of the project and set the following environment variables:
 
 1. MONGODB_URI
 
@@ -47,7 +47,8 @@ Create a .env file in the root directory of the project and set the following en
 
 3. SECRET_KEY
  
-* Type
+
+*Type
 
 MONGODB_URI: string,
 
@@ -58,10 +59,10 @@ SECRET_KEY: string
 
 4. Run - npm start
 
-   The server should now be running on http://localhost: Your given PORT.
+   *The server should now be running on http://localhost: Your given PORT.
 
 
-***API Endpoints**
+**API Endpoints**
 
 | HTTP Verb | API Endpoint | Brief Description |
 | --- | --- | --- | 
@@ -89,7 +90,7 @@ SECRET_KEY: string
 | category | string |
 
 
-***2.feedbacks collection fields**
+**2.feedbacks collection fields**
 | Attribute | Data Type |
 | --- | --- |
 | _id | ObjectId |
@@ -98,8 +99,9 @@ SECRET_KEY: string
 | reviews | string |
 
 
-***2.feedbacks collection fields**
+**2.users collection fields**
 | Attribute | Data Type |
+| --- | --- |
 | name | string |
 | email | string |
 | phone | number |
